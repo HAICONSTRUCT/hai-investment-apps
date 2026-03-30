@@ -1,0 +1,237 @@
+<!-- ========================================
+     H.INVESTMENT NL B.V. - AI SERVICES SECTION
+     Add this to your www.hiinvestment.info homepage
+     ======================================== -->
+
+<style>
+    .hai-services {
+        max-width: 1200px;
+        margin: 60px auto;
+        padding: 40px 20px;
+        background: linear-gradient(135deg, #0A0E1F 0%, #131829 100%);
+        border-radius: 20px;
+        border: 2px solid #C9A84C;
+    }
+    
+    .hai-header {
+        text-align: center;
+        margin-bottom: 50px;
+    }
+    
+    .hai-header h2 {
+        font-family: 'Playfair Display', serif;
+        font-size: 2.5rem;
+        color: #C9A84C;
+        margin-bottom: 15px;
+    }
+    
+    .hai-header p {
+        font-size: 1.1rem;
+        color: rgba(255,255,255,0.8);
+        max-width: 700px;
+        margin: 0 auto;
+        line-height: 1.6;
+    }
+    
+    .trial-badge {
+        display: inline-block;
+        background: rgba(201,168,76,0.2);
+        color: #C9A84C;
+        padding: 8px 20px;
+        border-radius: 25px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        margin-top: 15px;
+        border: 1px solid #C9A84C;
+    }
+    
+    .hai-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 30px;
+        margin-top: 40px;
+    }
+    
+    .hai-card {
+        background: rgba(255,255,255,0.05);
+        border: 2px solid rgba(201,168,76,0.3);
+        border-radius: 15px;
+        padding: 35px;
+        text-align: center;
+        transition: all 0.3s;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .hai-card:hover {
+        transform: translateY(-5px);
+        border-color: #C9A84C;
+        box-shadow: 0 10px 30px rgba(201,168,76,0.2);
+    }
+    
+    .hai-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #C9A84C, #D4B860);
+    }
+    
+    .hai-icon {
+        font-size: 4rem;
+        margin-bottom: 20px;
+    }
+    
+    .hai-card h3 {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.8rem;
+        color: #FFFFFF;
+        margin-bottom: 15px;
+    }
+    
+    .hai-card p {
+        color: rgba(255,255,255,0.7);
+        font-size: 1rem;
+        line-height: 1.6;
+        margin-bottom: 25px;
+    }
+    
+    .hai-features {
+        list-style: none;
+        padding: 0;
+        margin: 20px 0;
+        text-align: left;
+    }
+    
+    .hai-features li {
+        color: rgba(255,255,255,0.8);
+        font-size: 0.95rem;
+        padding: 8px 0;
+        padding-left: 30px;
+        position: relative;
+    }
+    
+    .hai-features li::before {
+        content: '✓';
+        position: absolute;
+        left: 0;
+        color: #4ADE80;
+        font-weight: bold;
+        font-size: 1.2rem;
+    }
+    
+    .hai-btn {
+        display: inline-block;
+        padding: 15px 40px;
+        background: #C9A84C;
+        color: #0A0E1F;
+        text-decoration: none;
+        border-radius: 10px;
+        font-weight: 700;
+        font-size: 1.05rem;
+        transition: all 0.3s;
+        border: 2px solid #C9A84C;
+        margin-top: 15px;
+    }
+    
+    .hai-btn:hover {
+        background: transparent;
+        color: #C9A84C;
+        transform: scale(1.05);
+    }
+    
+    .trial-note {
+        background: rgba(74,222,128,0.1);
+        border: 1px solid #4ADE80;
+        border-radius: 8px;
+        padding: 12px;
+        margin-top: 20px;
+        font-size: 0.9rem;
+        color: #4ADE80;
+        font-weight: 600;
+    }
+    
+    @media (max-width: 768px) {
+        .hai-header h2 {
+            font-size: 2rem;
+        }
+        
+        .hai-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<section class="hai-services">
+    <div class="hai-header">
+        <h2>🤖 AI-Powered Services</h2>
+        <p>Leverage artificial intelligence for construction analysis and investment opportunities. Professional-grade tools now accessible to all.</p>
+        <span class="trial-badge">⚡ Beta Trial Program Available</span>
+    </div>
+    
+    <div class="hai-grid">
+        <!-- Construction Reports Card -->
+        <div class="hai-card">
+            <div class="hai-icon">🏗️</div>
+            <h3>H.A.I Construct</h3>
+            <p>AI-generated construction reports in minutes. From business plans to BOQ analysis.</p>
+            
+            <ul class="hai-features">
+                <li>16 professional report types</li>
+                <li>Upload drawings & specs</li>
+                <li>Instant AI analysis</li>
+                <li>Investor-ready documents</li>
+            </ul>
+            
+            <div class="trial-note">
+                🎁 Free trial report available
+            </div>
+            
+            <a href="mailto:office@hiinvestment.info?subject=H.A.I Construct - Free Trial Request&body=Hello,%0D%0A%0D%0AI would like to try the H.A.I Construct service.%0D%0A%0D%0AProject Name:%0D%0AProject Type:%0D%0ALocation:%0D%0ABudget:%0D%0A%0D%0AThank you!" 
+               class="hai-btn">
+                Request Free Trial →
+            </a>
+        </div>
+        
+        <!-- Investment Opportunities Card -->
+        <div class="hai-card">
+            <div class="hai-icon">💎</div>
+            <h3>H.A.I Invest</h3>
+            <p>AI-powered investment search across 50+ cities. From €10K group investments to €1M+ solo deals.</p>
+            
+            <ul class="hai-features">
+                <li>Exclusive H.Investment network</li>
+                <li>Live market intelligence</li>
+                <li>USA, Europe & Middle East</li>
+                <li>Group investment options</li>
+            </ul>
+            
+            <div class="trial-note">
+                🎁 Free trial search available
+            </div>
+            
+            <a href="mailto:office@hiinvestment.info?subject=H.A.I Invest - Free Trial Request&body=Hello,%0D%0A%0D%0AI would like to try the H.A.I Invest service.%0D%0A%0D%0AInvestment Capital Available:%0D%0APreferred Locations:%0D%0AProperty Type:%0D%0ATarget ROI:%0D%0A%0D%0AThank you!" 
+               class="hai-btn">
+                Request Free Trial →
+            </a>
+        </div>
+    </div>
+    
+    <!-- Footer Note -->
+    <div style="text-align: center; margin-top: 50px; padding-top: 30px; border-top: 1px solid rgba(201,168,76,0.3);">
+        <p style="color: rgba(255,255,255,0.6); font-size: 0.95rem; line-height: 1.7;">
+            <strong style="color: #C9A84C;">Beta Trial Program:</strong> We're currently testing these AI services with select clients.<br>
+            Request your free trial and experience the future of construction analysis and investment research.<br>
+            <br>
+            <strong style="color: #FFFFFF;">Contact:</strong> 
+            <a href="mailto:office@hiinvestment.info" style="color: #C9A84C; text-decoration: none;">office@hiinvestment.info</a> | 
+            <a href="https://www.hiinvestment.info" style="color: #C9A84C; text-decoration: none;">www.hiinvestment.info</a>
+        </p>
+    </div>
+</section>
+
+<!-- ========================================
+     END OF H.INVESTMENT AI SERVICES SECTION
+     ======================================== -->

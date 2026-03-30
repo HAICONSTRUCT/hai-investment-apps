@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>H.A.I Construct — Professional Construction Reports</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --ink: #0A0E1F;
+            --ink2: #131829;
+            --gold: #C9A84C;
+            --white: #FFFFFF;
+            --white-60: rgba(255,255,255,0.6);
+            --ok: #4ADE80;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--ink);
+            color: var(--white);
+            min-height: 100vh;
+        }
+        
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10,14,31,0.95);
+            backdrop-filter: blur(10px);
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(201,168,76,0.2);
+        }
+        
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--gold);
+        }
+        
+        .btn {
+            padding: 0.7rem 1.8rem;
+            border-radius: 8px;
+            border: 2px solid var(--gold);
+            background: transparent;
+            color: var(--gold);
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+        }
+        
+        .btn:hover {
+            background: var(--gold);
+            color: var(--ink);
+        }
+        
+        .btn-primary {
+            background: var(--gold);
+            color: var(--ink);
+            border: none;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 100px auto 2rem;
+            padding: 0 2rem;
+        }
+        
+        .hero {
+            text-align: center;
+            padding: 3rem 0;
+        }
+        
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--white-60);
+            margin-bottom: 2rem;
+        }
+        
+        .step-indicator {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            opacity: 0.4;
+            transition: opacity 0.3s;
+        }
+        
+        .step.active {
+            opacity: 1;
+        }
+        
+        .step-num {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: var(--gold);
+            color: var(--ink);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+        
+        .panel {
+            background: var(--ink2);
+            border-radius: 16px;
+            padding: 2.5rem;
+            border: 1px solid rgba(201,168,76,0.2);
+            display: none;
+        }
+        
+        .panel.active {
+            display: block;
+        }
+        
+        .panel-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--gold);
+            margin-bottom: 2rem;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .form-label {
+            color: var(--white);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: 0.9rem;
+            background: var(--ink);
+            border: 1px solid rgba(201,168,76,0.3);
+            border-radius: 8px;
+            color: var(--white);
+            font-size: 0.95rem;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+        
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .upload-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .upload-zone {
+            background: var(--ink);
+            border: 2px dashed rgba(201,168,76,0.4);
+            border-radius: 12px;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .upload-zone:hover {
+            border-color: var(--gold);
+            background: rgba(201,168,76,0.05);
+        }
+        
+        .upload-zone input {
+            display: none;
+        }
+        
+        .upload-icon {
+            font-size: 3rem;
+            margin-bottom: 0.8rem;
+        }
+        
+        .upload-title {
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+            color: var(--gold);
+            font-size: 1.05rem;
+        }
+        
+        .upload-formats {
+            font-size: 0.8rem;
+            color: var(--white-60);
+        }
+        
+        .file-count {
+            margin-top: 0.5rem;
+            font-size: 0.85rem;
+            color: var(--ok);
+        }
+        
+        .reports-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .report-card {
+            background: var(--ink);
+            border: 2px solid rgba(201,168,76,0.2);
+            border-radius: 10px;
+            padding: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: start;
+            gap: 1rem;
+        }
+        
+        .report-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-2px);
+        }
+        
+        .report-card input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            flex-shrink: 0;
+            margin-top: 0.2rem;
+        }
+        
+        .report-content {
+            flex: 1;
+        }
+        
+        .report-icon {
+            font-size: 1.8rem;
+            margin-bottom: 0.3rem;
+        }
+        
+        .report-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--white);
+        }
+        
+        .btn-group {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .btn-wide {
+            flex: 1;
+            padding: 1rem;
+            font-size: 1.05rem;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.85);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        
+        .modal.show {
+            display: flex;
+        }
+        
+        .modal-box {
+            background: var(--ink);
+            border: 2px solid var(--gold);
+            border-radius: 16px;
+            padding: 2.5rem;
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 2.5rem;
+            cursor: pointer;
+            line-height: 1;
+            width: 40px;
+            height: 40px;
+        }
+        
+        .modal-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        
+        .pricing-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+        
+        .price-card {
+            background: var(--ink2);
+            border: 2px solid rgba(201,168,76,0.2);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all 0.3s;
+        }
+        
+        .price-card.featured {
+            border-color: var(--gold);
+            position: relative;
+        }
+        
+        .price-card.featured::before {
+            content: 'BEST VALUE';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--gold);
+            color: var(--ink);
+            padding: 0.4rem 1.2rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+        
+        .price-amount {
+            font-size: 2.8rem;
+            color: var(--gold);
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+        }
+        
+        .price-period {
+            font-size: 0.9rem;
+            color: var(--white-60);
+            margin-bottom: 0.5rem;
+        }
+        
+        .price-name {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .price-desc {
+            color: var(--white-60);
+            margin-bottom: 1.2rem;
+            font-size: 0.9rem;
+        }
+        
+        .price-features {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+        
+        .price-features li {
+            padding: 0.5rem 0 0.5rem 2rem;
+            position: relative;
+            font-size: 0.9rem;
+            color: var(--white-60);
+        }
+        
+        .price-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--ok);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        
+        .price-btn {
+            width: 100%;
+            padding: 1rem;
+            border-radius: 8px;
+            border: none;
+            background: var(--gold);
+            color: var(--ink);
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .price-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(201,168,76,0.3);
+        }
+        
+        .disclaimer-box {
+            background: rgba(201,168,76,0.1);
+            border: 1px solid rgba(201,168,76,0.4);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .disclaimer-box p {
+            color: var(--white-60);
+            line-height: 1.7;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+        
+        .disclaimer-box strong {
+            color: var(--white);
+        }
+        
+        .contact-box {
+            background: rgba(201,168,76,0.15);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            margin: 1.5rem 0;
+        }
+        
+        .contact-box p {
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+        
+        .contact-box strong {
+            color: var(--gold);
+            font-size: 1.1rem;
+        }
+        
+        .contact-box a {
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .contact-box a:hover {
+            text-decoration: underline;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 1rem;
+            background: rgba(201,168,76,0.1);
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+        
+        .checkbox-group input {
+            width: 22px;
+            height: 22px;
+            cursor: pointer;
+        }
+        
+        .checkbox-group label {
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 3rem;
+        }
+        
+        .loading.show {
+            display: block;
+        }
+        
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(201,168,76,0.2);
+            border-top-color: var(--gold);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1.5rem;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .results {
+            display: none;
+        }
+        
+        .results.show {
+            display: block;
+        }
+        
+        .result-card {
+            background: var(--ink2);
+            border: 1px solid rgba(201,168,76,0.2);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .result-title {
+            font-size: 1.5rem;
+            color: var(--gold);
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .result-content {
+            color: var(--white-60);
+            line-height: 1.8;
+            white-space: pre-wrap;
+        }
+        
+        .result-footer {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.85rem;
+            color: var(--white-60);
+            font-style: italic;
+        }
+        
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--gold);
+            color: var(--ink);
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            transform: translateY(150%);
+            transition: transform 0.3s;
+            z-index: 3000;
+        }
+        
+        .toast.show {
+            transform: translateY(0);
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--white-60);
+            font-size: 0.85rem;
+            border-top: 1px solid rgba(201,168,76,0.2);
+            margin-top: 4rem;
+        }
+        
+        .footer a {
+            color: var(--gold);
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <div class="logo">🏛️ H.A.I Construct</div>
+    <button class="btn" onclick="showPricing()">Pricing</button>
+</div>
+
+<div class="container">
+    <div id="homepage">
+        <div class="hero">
+            <h1 class="hero-title">In-Depth Analysis for Your Real Estate Projects in Minutes</h1>
+            <p class="hero-subtitle">Professional construction reports in minutes — Perfect for investors, developers, and real estate enthusiasts</p>
+            
+            <div style="max-width:900px; margin:2rem auto 2.5rem; background:rgba(201,168,76,0.1); border-left:3px solid var(--gold); padding:1.5rem 2rem; border-radius:10px; text-align:left;">
+                <div style="display:flex; align-items:center; gap:1rem; margin-bottom:1rem;">
+                    <span style="font-size:2rem;">⚡</span>
+                    <strong style="color:var(--gold); font-size:1.2rem;">Why Use H.A.I Construct?</strong>
+                </div>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; color:var(--white-60); font-size:0.95rem; line-height:1.7;">
+                    <div><strong style="color:var(--white);">✓ Save 95% of time</strong><br>Reports in 60 seconds vs 2-3 days manual work</div>
+                    <div><strong style="color:var(--white);">✓ Professional quality</strong><br>Investor-ready documents with detailed analysis</div>
+                    <div><strong style="color:var(--white);">✓ 16 report types</strong><br>Business plans, BOQ, schedules, permits, H&S, SWOT</div>
+                    <div><strong style="color:var(--white);">✓ Upload your docs</strong><br>AI reads drawings, specs, and financials</div>
+                </div>
+                <div style="margin-top:1.2rem; padding-top:1.2rem; border-top:1px solid rgba(201,168,76,0.2); font-size:0.9rem; color:var(--white-60);">
+                    <strong style="color:var(--gold);">Perfect for:</strong> Developers • Investors • Contractors • Architects • Real Estate Enthusiasts
+                </div>
+                <div style="margin-top:1.2rem; padding-top:1.2rem; border-top:1px solid rgba(201,168,76,0.2); font-size:0.85rem; color:var(--white-60);">
+                    <strong style="color:var(--gold);">🔒 100% Confidential:</strong> We never store, share, view, or use your reports. Your data is processed securely and deleted immediately after generation.
+                </div>
+            </div>
+            
+            <button class="btn btn-primary" style="font-size:1.1rem; padding:1rem 3rem;" onclick="startProject()">Start New Project →</button>
+        </div>
+    </div>
+
+    <div id="workspace" style="display:none;">
+        <div class="step-indicator">
+            <div class="step active" data-step="1">
+                <div class="step-num">01</div>
+                <span>Project Brief</span>
+            </div>
+            <div class="step" data-step="2">
+                <div class="step-num">02</div>
+                <span>Upload Documents</span>
+            </div>
+            <div class="step" data-step="3">
+                <div class="step-num">03</div>
+                <span>Select Reports</span>
+            </div>
+        </div>
+
+        <!-- STEP 1: PROJECT BRIEF -->
+        <div class="panel active" id="step1">
+            <h2 class="panel-title">Project Information</h2>
+            
+            <div class="form-grid">
+                <div class="form-group">
+                    <label class="form-label">Project Name</label>
+                    <input class="form-input" id="projectName" type="text" placeholder="e.g. Riverside Mixed-Use Development">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Project Type</label>
+                    <select class="form-select" id="projectType">
+                        <option>Residential — Single Family</option>
+                        <option>Residential — Multi-Unit</option>
+                        <option>Commercial — Office</option>
+                        <option>Commercial — Retail</option>
+                        <option>Mixed-Use Development</option>
+                        <option>Industrial / Warehouse</option>
+                        <option>Infrastructure</option>
+                        <option>Renovation / Refurbishment</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-grid">
+                <div class="form-group">
+                    <label class="form-label">Location</label>
+                    <input class="form-input" id="projectLocation" type="text" placeholder="e.g. Amsterdam, Netherlands">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Budget (€)</label>
+                    <input class="form-input" id="projectBudget" type="text" placeholder="e.g. 2,500,000">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Project Description</label>
+                <textarea class="form-textarea" id="projectDesc" placeholder="Describe scope, key requirements, constraints, goals..."></textarea>
+            </div>
+            
+            <div class="btn-group">
+                <button class="btn" onclick="backToHome()">← Back</button>
+                <button class="btn btn-primary btn-wide" onclick="goToStep2()">Continue to Upload →</button>
+            </div>
+        </div>
+
+        <!-- STEP 2: UPLOAD DOCUMENTS -->
+        <div class="panel" id="step2">
+            <h2 class="panel-title">Upload Project Documents</h2>
+            <p style="color:var(--white-60); margin-bottom:2rem;">Click any zone to browse files or drag files directly</p>
+            
+            <div class="upload-grid">
+                <div class="upload-zone" onclick="document.getElementById('filesDrawings').click()">
+                    <input type="file" id="filesDrawings" multiple accept=".pdf,.dwg,.png,.jpg">
+                    <div class="upload-icon">🏛️</div>
+                    <div class="upload-title">Construction Drawings</div>
+                    <div class="upload-formats">PDF · DWG · Images</div>
+                    <div class="file-count" id="countDrawings">0 files</div>
+                </div>
+                
+                <div class="upload-zone" onclick="document.getElementById('filesTechnical').click()">
+                    <input type="file" id="filesTechnical" multiple accept=".pdf,.docx,.doc,.txt">
+                    <div class="upload-icon">📐</div>
+                    <div class="upload-title">Technical Specs</div>
+                    <div class="upload-formats">PDF · DOCX · DOC</div>
+                    <div class="file-count" id="countTechnical">0 files</div>
+                </div>
+                
+                <div class="upload-zone" onclick="document.getElementById('filesMaterials').click()">
+                    <input type="file" id="filesMaterials" multiple accept=".xlsx,.xls,.pdf,.csv">
+                    <div class="upload-icon">🧱</div>
+                    <div class="upload-title">Materials Specs</div>
+                    <div class="upload-formats">XLSX · PDF · CSV</div>
+                    <div class="file-count" id="countMaterials">0 files</div>
+                </div>
+                
+                <div class="upload-zone" onclick="document.getElementById('filesFinancial').click()">
+                    <input type="file" id="filesFinancial" multiple accept=".xlsx,.xls,.pdf">
+                    <div class="upload-icon">💰</div>
+                    <div class="upload-title">Financial Details</div>
+                    <div class="upload-formats">XLSX · XLS · PDF</div>
+                    <div class="file-count" id="countFinancial">0 files</div>
+                </div>
+            </div>
+            
+            <div class="btn-group">
+                <button class="btn" onclick="goToStep1()">← Back</button>
+                <button class="btn btn-primary btn-wide" onclick="goToStep3()">Continue to Reports →</button>
+            </div>
+        </div>
+
+        <!-- STEP 3: SELECT REPORTS -->
+        <div class="panel" id="step3">
+            <h2 class="panel-title">Select Reports to Generate</h2>
+            <p style="color:var(--white-60); margin-bottom:2rem;">Choose reports tailored to your project needs</p>
+            
+            <div class="reports-grid">
+                <label class="report-card">
+                    <input type="checkbox" value="businessPlan" checked>
+                    <div class="report-content">
+                        <div class="report-icon">📊</div>
+                        <div class="report-name">Business Plan</div>
+                    </div>
+                </label>
+                
+                <label class="report-card">
+                    <input type="checkbox" value="constructionPlan" checked>
+                    <div class="report-content">
+                        <div class="report-icon">🏗️</div>
+                        <div class="report-name">Construction Plan</div>
+                    </div>
+                </label>
+                
+                <label class="report-card">
+                    <input type="checkbox" value="healthSafety" checked>
+                    <div class="report-content">
+                        <div class="report-icon">⚠️</div>
+                        <div class="report-name">Health & Safety Plan</div>
+                    </div>
+                </label>
+                
+                <label class="report-card">
+                    <input type="checkbox" value="designSchedule">
+                    <div class="report-content">
+                        <div class="report-icon">✏️</div>
+                        <div class="report-name">Design Schedule</div>
+                    </div>
+                </label>
+                
+                <label class="report-card">
+                    <input type="checkbox" value="drawingsChecklist">
+                    <div class="report-content">
+                        <div class="report-icon">📝</div>
+                        <div class="report-name">Drawings Checklist</div>
+                    </div>
+                </label>
+                
+                <label class="report-card">
+                    <input type="checkbox" value="detailedSchedule">
+                    <div class="report-content">
+                        <div class="report-icon">📅</div>
+                        <div class="report-name">Detailed Schedule</div>
+                    </div>
+                </label>
+                
+                <label class="report-card">
+                    <input type="checkbox" value="executionSchedule">
+                    <div class="report-content">
+                        <div class="report-icon">⚙️</div>
+                        <div class="report-name">Execution Schedule</div>
+                    </div>
+                </label>
+                
+                <label class="report-card">
+                    <input type="checkbox" value="procurementSchedule">
+                    <div class="report-content">
+                        <div class="report-icon">🛒</div>
+                        <div class="report-name">Procurement Schedule</div>
+                    </div>
+                </label>
+                
+                <label class="report-card">
+                    <input type="checkbox" value="permits">
+                    <div class="report-content">
+                        <div class="report-icon">📋</div>
+                        <div class="report-name">Permit Requirements</div>
+                    </div>
+                </label>
+                
+                <label class="report-card">
+                    <input type="checkbox" value="costAnalysis">
+                    <div class="report-content">
+                        <div class="report-icon">💵</div>
+                        <div class="report-name">Cost Analysis</div>
+                    </div>
+                </label>
+                
+                <label class="report-card">
+                    <input type="checkbox" value="qaqc">
+                    <div class="report-content">
+                        <div class="report-icon">🔬</div>
+                        <div class="report-name">QA/QC Report</div>
+                    </div>
+                </label>
+                
+                <label class="report-card">
+                    <input type="checkbox" value="qhse">
+                    <div class="report-content">
+                        <div class="report-icon">🛡️</div>
+                        <div class="report-name">QHSE Report</div>
+                    </div>
+                </label>
+                
+                <label class="report-card">
+                    <input type="checkbox" value="carbon">
+                    <div class="report-content">
+                        <div class="report-icon">🌿</div>
+                        <div class="report-name">Carbon Emission Report</div>
+                    </div>
+                </label>
+                
+                <label class="report-card">
+                    <input type="checkbox" value="execSummary">
+                    <div class="report-content">
+                        <div class="report-icon">📄</div>
+                        <div class="report-name">Executive Summary</div>
+                    </div>
+                </label>
+                
+                <label class="report-card">
+                    <input type="checkbox" value="swot">
+                    <div class="report-content">
+                        <div class="report-icon">🎯</div>
+                        <div class="report-name">SWOT Analysis</div>
+                    </div>
+                </label>
+                
+                <label class="report-card">
+                    <input type="checkbox" value="boq">
+                    <div class="report-content">
+                        <div class="report-icon">📋</div>
+                        <div class="report-name">BOQ of the Work</div>
+                    </div>
+                </label>
+            </div>
+            
+            <div class="btn-group">
+                <button class="btn" onclick="goToStep2()">← Back</button>
+                <button class="btn btn-primary btn-wide" onclick="showDisclaimer()">Generate Reports →</button>
+            </div>
+        </div>
+
+        <!-- LOADING -->
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <h3 style="color:var(--gold); margin-bottom:1rem;">Generating Your Reports...</h3>
+            <p style="color:var(--white-60);">AI is analyzing your project. This may take 30-60 seconds...</p>
+        </div>
+
+        <!-- RESULTS -->
+        <div class="results" id="results">
+            <h2 class="panel-title">Your Reports</h2>
+            <div id="resultsContainer"></div>
+            <div class="btn-group">
+                <button class="btn" onclick="location.reload()">← New Project</button>
+                <button class="btn btn-primary" onclick="window.location.href='invest.html'">Find Opportunities →</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- PRICING MODAL -->
+<div class="modal" id="pricingModal">
+    <div class="modal-box">
+        <button class="modal-close" onclick="closePricing()">×</button>
+        <h2 class="modal-title">Choose Your Plan</h2>
+        <p style="text-align:center; color:var(--white-60); margin-bottom:2rem;">Cancel anytime • Pay only for what you use</p>
+        
+        <div class="pricing-grid">
+            <div class="price-card">
+                <div class="price-amount">Free</div>
+                <div class="price-name">Trial</div>
+                <div class="price-desc">Try before you buy</div>
+                <ul class="price-features">
+                    <li>1 free report generation</li>
+                    <li>All report types available</li>
+                    <li>No credit card required</li>
+                </ul>
+                <button class="price-btn" onclick="startTrial()">Start Free Trial</button>
+            </div>
+            
+            <div class="price-card">
+                <div class="price-amount">€4.99</div>
+                <div class="price-period">per report</div>
+                <div class="price-name">Pay As You Go</div>
+                <div class="price-desc">Perfect for occasional use</div>
+                <ul class="price-features">
+                    <li>Buy reports as needed</li>
+                    <li>No subscription required</li>
+                    <li>All report types</li>
+                </ul>
+                <button class="price-btn" onclick="contactForPayment('single')">Contact for Payment</button>
+            </div>
+            
+            <div class="price-card featured">
+                <div class="price-amount">€24.99</div>
+                <div class="price-period">per month</div>
+                <div class="price-name">Monthly</div>
+                <div class="price-desc">16 report credits per month</div>
+                <ul class="price-features">
+                    <li>€1.56 per report</li>
+                    <li>Credits roll over</li>
+                    <li>Cancel anytime</li>
+                    <li>Priority support</li>
+                </ul>
+                <button class="price-btn" onclick="contactForPayment('monthly')">Contact for Payment</button>
+            </div>
+            
+            <div class="price-card featured">
+                <div class="price-amount">€149</div>
+                <div class="price-period">per year</div>
+                <div class="price-name">Annual</div>
+                <div class="price-desc">150 reports + FREE H.A.I Invest</div>
+                <ul class="price-features">
+                    <li>€0.99 per report (best value!)</li>
+                    <li>FREE opportunity finder access</li>
+                    <li>Credits roll over</li>
+                    <li>Cancel anytime</li>
+                    <li>Priority support</li>
+                </ul>
+                <button class="price-btn" onclick="contactForPayment('annual')">Contact for Payment</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- DISCLAIMER MODAL -->
+<div class="modal" id="disclaimerModal">
+    <div class="modal-box">
+        <button class="modal-close" onclick="closeDisclaimer()">×</button>
+        <h2 class="modal-title">⚠️ Important Notice</h2>
+        
+        <div class="disclaimer-box">
+            <p>This AI-generated report is for <strong>informational purposes only</strong> and does not constitute professional advice. Always consult qualified professionals before making decisions.</p>
+        </div>
+        
+        <div class="contact-box">
+            <p style="margin-bottom:0.8rem; font-weight:600;">Need full due diligence, site visits, and professional analysis?</p>
+            <p style="font-size:1.2rem; margin-bottom:0.5rem;"><strong>H.Investment NL B.V.</strong></p>
+            <p><a href="/cdn-cgi/l/email-protection#0e616868676d6b4e66676760786b7d7a636b607a2067606861"><span class="__cf_email__" data-cfemail="caa5acaca3a9af8aa2a3a3a4bcafb9bea7afa4bee4a3a4aca5">[email&#160;protected]</span></a></p>
+            <p><a href="https://www.hiinvestment.info" target="_blank">www.hiinvestment.info</a></p>
+        </div>
+        
+        <div class="checkbox-group">
+            <input type="checkbox" id="disclaimerAccept">
+            <label for="disclaimerAccept">I understand and accept</label>
+        </div>
+        
+        <div class="btn-group">
+            <button class="btn" onclick="closeDisclaimer()">Cancel</button>
+            <button class="btn btn-primary btn-wide" onclick="generateReports()">Generate Reports →</button>
+        </div>
+    </div>
+</div>
+
+<!-- API KEY MODAL -->
+<div class="modal" id="apiKeyModal">
+    <div class="modal-box">
+        <button class="modal-close" onclick="closeApiKeyModal()">×</button>
+        <h2 class="modal-title">Enter API Key</h2>
+        <p style="text-align:center; color:var(--white-60); margin-bottom:1.5rem;">Enter your Anthropic API key to generate reports</p>
+        
+        <div class="form-group">
+            <input class="form-input" id="apiKeyInput" type="password" placeholder="sk-ant-api03-...">
+        </div>
+        
+        <div class="btn-group">
+            <button class="btn" onclick="closeApiKeyModal()">Cancel</button>
+            <button class="btn btn-primary btn-wide" onclick="saveApiKey()">Save & Continue</button>
+        </div>
+    </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<div class="footer">
+    <p>© 2026 H.Investment NL B.V. | <a href="https://www.hiinvestment.info" target="_blank">www.hiinvestment.info</a></p>
+    <p style="margin-top:0.5rem;"><a href="#" onclick="showTerms(); return false;">Terms & Conditions</a> | <a href="#" onclick="showDisclaimer(); return false;">Disclaimer</a> | <a href="#" onclick="showPrivacy(); return false;">Privacy Policy</a></p>
+    <p style="margin-top:0.5rem; font-size:0.75rem;">AI-generated content for informational purposes only</p>
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+let currentStep = 1;
+let apiKey = sessionStorage.getItem('apiKey') || '';
+
+// FILE UPLOAD HANDLERS
+document.getElementById('filesDrawings').addEventListener('change', function(e) {
+    document.getElementById('countDrawings').textContent = e.target.files.length + ' files';
+});
+
+document.getElementById('filesTechnical').addEventListener('change', function(e) {
+    document.getElementById('countTechnical').textContent = e.target.files.length + ' files';
+});
+
+document.getElementById('filesMaterials').addEventListener('change', function(e) {
+    document.getElementById('countMaterials').textContent = e.target.files.length + ' files';
+});
+
+document.getElementById('filesFinancial').addEventListener('change', function(e) {
+    document.getElementById('countFinancial').textContent = e.target.files.length + ' files';
+});
+
+// NAVIGATION
+function startProject() {
+    document.getElementById('homepage').style.display = 'none';
+    document.getElementById('workspace').style.display = 'block';
+}
+
+function backToHome() {
+    document.getElementById('homepage').style.display = 'block';
+    document.getElementById('workspace').style.display = 'none';
+}
+
+function goToStep1() {
+    showStep(1);
+}
+
+function goToStep2() {
+    if (!document.getElementById('projectName').value) {
+        showToast('Please enter a project name');
+        return;
+    }
+    showStep(2);
+}
+
+function goToStep3() {
+    showStep(3);
+}
+
+function showStep(num) {
+    currentStep = num;
+    
+    // Hide all panels
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    
+    // Show target panel
+    document.getElementById('step' + num).classList.add('active');
+    
+    // Update step indicator
+    document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+    document.querySelector('.step[data-step="' + num + '"]').classList.add('active');
+}
+
+// PRICING
+function showPricing() {
+    document.getElementById('pricingModal').classList.add('show');
+}
+
+function closePricing() {
+    document.getElementById('pricingModal').classList.remove('show');
+}
+
+function startTrial() {
+    closePricing();
+    showToast('Free trial activated! Generate 1 report.');
+    startProject();
+}
+
+function contactForPayment(plan) {
+    window.location.href = 'mailto:office@hiinvestment.info?subject=H.A.I%20Construct%20-%20' + plan + '%20plan&body=I%20would%20like%20to%20subscribe%20to%20the%20' + plan + '%20plan.';
+}
+
+// DISCLAIMER
+function showDisclaimer() {
+    const checked = Array.from(document.querySelectorAll('.report-card input:checked'));
+    if (checked.length === 0) {
+        showToast('Please select at least one report');
+        return;
+    }
+    
+    if (!apiKey) {
+        document.getElementById('apiKeyModal').classList.add('show');
+        return;
+    }
+    
+    document.getElementById('disclaimerModal').classList.add('show');
+}
+
+function closeDisclaimer() {
+    document.getElementById('disclaimerModal').classList.remove('show');
+    document.getElementById('disclaimerAccept').checked = false;
+}
+
+function closeApiKeyModal() {
+    document.getElementById('apiKeyModal').classList.remove('show');
+}
+
+function saveApiKey() {
+    const key = document.getElementById('apiKeyInput').value.trim();
+    if (!key.startsWith('sk-ant-')) {
+        showToast('Please enter a valid API key');
+        return;
+    }
+    apiKey = key;
+    sessionStorage.setItem('apiKey', key);
+    closeApiKeyModal();
+    showToast('API key saved!');
+    setTimeout(() => showDisclaimer(), 500);
+}
+
+// REPORT GENERATION
+async function generateReports() {
+    if (!document.getElementById('disclaimerAccept').checked) {
+        showToast('Please accept the disclaimer');
+        return;
+    }
+    
+    closeDisclaimer();
+    
+    // Hide step 3, show loading
+    document.getElementById('step3').classList.remove('active');
+    document.getElementById('loading').classList.add('show');
+    
+    const projectData = {
+        name: document.getElementById('projectName').value,
+        type: document.getElementById('projectType').value,
+        location: document.getElementById('projectLocation').value,
+        budget: document.getElementById('projectBudget').value,
+        description: document.getElementById('projectDesc').value
+    };
+    
+    const selectedReports = Array.from(document.querySelectorAll('.report-card input:checked')).map(c => c.value);
+    
+    const results = [];
+    
+    for (const reportType of selectedReports) {
+        try {
+            const report = await generateSingleReport(projectData, reportType);
+            results.push({
+                type: reportType,
+                content: report
+            });
+        } catch (err) {
+            results.push({
+                type: reportType,
+                content: 'Error generating report: ' + err.message
+            });
+        }
+    }
+    
+    displayResults(results);
+}
+
+async function generateSingleReport(project, reportType) {
+    const prompt = `Generate a professional ${reportType} report for this construction project:
+
+Project: ${project.name}
+Type: ${project.type}
+Location: ${project.location}
+Budget: €${project.budget}
+Description: ${project.description}
+
+Provide a detailed, professional ${reportType} with specific data, analysis, and recommendations.`;
+
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'x-api-key': apiKey,
+            'anthropic-version': '2023-06-01'
+        },
+        body: JSON.stringify({
+            model: 'claude-sonnet-4-20250514',
+            max_tokens: 2000,
+            messages: [{
+                role: 'user',
+                content: prompt
+            }]
+        })
+    });
+    
+    if (!response.ok) {
+        throw new Error('API request failed');
+    }
+    
+    const data = await response.json();
+    return data.content[0].text;
+}
+
+function displayResults(results) {
+    document.getElementById('loading').classList.remove('show');
+    document.getElementById('results').classList.add('show');
+    
+    const container = document.getElementById('resultsContainer');
+    container.innerHTML = results.map(r => `
+        <div class="result-card">
+            <div class="result-title">${formatReportName(r.type)}</div>
+            <div class="result-content">${r.content}</div>
+            <div class="result-footer">
+                <p><em>Report generated by H.A.I Construct for informational purposes only.</em></p>
+                <p style="margin-top:0.5rem;">Need comprehensive due diligence? Contact <a href="mailto:office@hiinvestment.info" style="color:var(--gold);">H.Investment NL B.V.</a></p>
+            </div>
+        </div>
+    `).join('');
+}
+
+function formatReportName(type) {
+    const names = {
+        businessPlan: '📊 Business Plan',
+        constructionPlan: '🏗️ Construction Plan',
+        healthSafety: '⚠️ Health & Safety Plan',
+        designSchedule: '✏️ Design Schedule',
+        drawingsChecklist: '📝 Drawings Checklist',
+        detailedSchedule: '📅 Detailed Project Schedule',
+        executionSchedule: '⚙️ Execution Schedule',
+        procurementSchedule: '🛒 Procurement Schedule',
+        permits: '📋 Permit Requirements',
+        costAnalysis: '💵 Cost Analysis',
+        qaqc: '🔬 QA/QC Report',
+        qhse: '🛡️ QHSE Report',
+        carbon: '🌿 Carbon Emission Report',
+        execSummary: '📄 Executive Summary',
+        swot: '🎯 SWOT Analysis',
+        boq: '📋 BOQ of the Work'
+    };
+    return names[ty
